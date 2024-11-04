@@ -112,6 +112,6 @@ def main(filename):
 if __name__ == "__main__":
     import sys
     if len(sys.argv) != 2:
-        print("Usage: python stdheader.py <filename>")
+        print("Usage: python 42header.py <filename>")
     else:
         main(sys.argv[1])
