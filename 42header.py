@@ -83,7 +83,7 @@ def update_header(filename):
     start, end, _ = get_comment_style(filename)
     updated_line_prefix = f"{start}{' ' * (margin - len(start))}Updated: "
     current_date = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-    updated_line = format_line(start, f"Updated: {current_date} by {username}", ascii_art[4], end)
+    updated_line = format_line(start, f"Updated: {current_date} by {username}", ascii_art[6], end)
     
     with open(filename, 'r+') as f:
         lines = f.readlines()
