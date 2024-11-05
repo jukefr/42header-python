@@ -24,7 +24,7 @@ Add in `~/.zshrc` your:
 ### **Usage**
 
 ```bash
-$ cat file.c | python 42header.py
+$ cat <filename> | python 42header.py <filename>
 ```
 
 ### **Credits**
