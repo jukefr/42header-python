@@ -1,6 +1,7 @@
 import os
 import re
 import time
+import sys
 from datetime import datetime
 
 # ASCII Art and Configuration
@@ -31,8 +32,10 @@ comment_styles = {
     r'\.lua$': ('--', '--', '-')
 }
 
+filename = "hardcodedbecauseimlazy.c"
+
 # Determine the comment style based on the file extension
-def get_comment_style(filename):
+def get_comment_style():
     for pattern, style in comment_styles.items():
         if re.search(pattern, filename):
             return style
@@ -44,8 +47,8 @@ def format_line(start, left_text, right_text, end):
     return f"{start}{' ' * (margin - len(start))}{left_padded}{right_text}{' ' * (margin - len(end))}{end}"
 
 # Generate the header
-def generate_header(filename):
-    start, end, fill = get_comment_style(filename)
+def generate_header():
+    start, end, fill = get_comment_style()
     lines = []
     
     # Top line
@@ -70,48 +73,53 @@ def generate_header(filename):
     
     return lines
 
+
 # Insert the header at the start of the file
-def insert_header(filename):
-    header = generate_header(filename)
-    with open(filename, 'r+') as f:
-        content = f.read()
-        f.seek(0, 0)
-        f.write('\n'.join(header) + '\n\n' + content)
+def insert_header(lines):
+    header = generate_header()
+    return '\n'.join(header) + '\n\n' + '\n'.join(lines)
 
 # Update only the "Updated" line in the header if it exists
-def update_header(filename):
-    start, end, _ = get_comment_style(filename)
+def update_header():
+    start, end, _ = get_comment_style()
     updated_line_prefix = f"{start}{' ' * (margin - len(start))}Updated: "
     current_date = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
     updated_line = format_line(start, f"Updated: {current_date} by {username}", ascii_art[6], end)
-    
-    with open(filename, 'r+') as f:
-        lines = f.readlines()
-        for i, line in enumerate(lines):
-            if line.startswith(updated_line_prefix):
-                lines[i] = updated_line + '\n'
-                break
-        else:
-            insert_header(filename)
-            return
 
-        f.seek(0)
-        f.writelines(lines)
+    lines = []
+    for line in sys.stdin:
+        lines.append(line)
+    for i, line in enumerate(lines):
+        if line.startswith(updated_line_prefix):
+            lines[i] = updated_line + '\n'
+            return ('').join(lines)
+    lines = insert_header(lines)
+    return lines
+        
+    
+    # with open(filename, 'r+') as f:
+    #     lines = f.readlines()
+    #     for i, line in enumerate(lines):
+    #         if line.startswith(updated_line_prefix):
+    #             lines[i] = updated_line + '\n'
+    #             break
+    #     else:
+    #         insert_header(filename)
+    #         return
+
+    #     f.seek(0)
+    #     f.writelines(lines)
 
 # Main function to check and update or insert header
-def main(filename):
+def main():
     try:
-        if os.path.exists(filename):
-            update_header(filename)
-        else:
-            print(f"File '{filename}' does not exist.")
+        return update_header()
     except Exception as e:
         print(f"An error occurred: {e}")
 
 # Usage example
 if __name__ == "__main__":
     import sys
-    if len(sys.argv) != 2:
-        print("Usage: python 42header.py <filename>")
-    else:
-        main(sys.argv[1])
+    # if len(sys.argv) != 2:
+    #     print("Usage: python 42header.py <filename>")
+    print(main())
