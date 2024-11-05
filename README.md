@@ -8,6 +8,8 @@
 and working with stdin/stdout so I can use it as 
 a custom formatter chain in Helix editor.
 
+Assumes it's being used on C code.
+
 ![42 header](img/42header.jpg)
 
 ### **UNIX Setup**
@@ -22,7 +24,7 @@ Add in `~/.zshrc` your:
 ### **Usage**
 
 ```bash
-$ python 42header.py $FILENAME
+$ cat file.c | python 42header.py
 ```
 
 ### **Credits**
