@@ -4,7 +4,7 @@
 
 ### **Description**
 
-42 standard header rewritten as a python script.
+42 standard header rewritten as a python script and working with stdin/stdout.
 
 ![42 header](img/42header.jpg)
 
