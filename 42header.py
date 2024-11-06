@@ -75,7 +75,7 @@ def generate_header(filename):
 # Insert the header at the start of the file
 def insert_header(filename, lines):
     header = generate_header(filename)
-    return '\n'.join(header) + '\n\n' + '\n'.join(lines)
+    return '\n'.join(header) + '\n\n' + ''.join(lines)
 
 # Update only the "Updated" line in the header if it exists
 def update_header(filename):
