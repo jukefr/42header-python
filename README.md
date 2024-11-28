@@ -22,7 +22,11 @@ Add in `~/.zshrc` your:
 ### **Usage**
 
 ```bash
-$ cat <filename> | python 42header.py <filename>
+$ nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
+
+$ nix-shell -p $(readlink -f result)
+
+$ cat <filename> | header42 <filename>
 ```
 
 ### **Credits**
