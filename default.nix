@@ -29,7 +29,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "42 header (rewritten in python and working with stdin/stdout)";
-    homepage = "https://github.com/jukefr/42header-python";
+    homepage = "https://github.com/jukefr/header42";
     license = licenses.mit;
     maintainers = with maintainers; [ jukefr ];
   };
